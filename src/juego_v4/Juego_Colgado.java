@@ -11,20 +11,33 @@ public class Juego_Colgado {
 		
 		String[] palabras = {"alemania","polivalente","impresionante","estupefacientes"}; //palabras del juego
 		
+		int cuantosJugadores = 0;
+		while(cuantosJugadores<2) {
+			System.out.println("¿Cuantos jugadores juegan?");
+			cuantosJugadores = scanner.nextInt();
+		}
+		
+		System.out.println("¿Cuantas rondas jugaran?");
+		int rondas = scanner.nextInt();
+		
 		System.out.println("Elije una de las palabras ocultas:");
 		int opcion = scanner.nextInt()-1; // scanner con la opcion a elejir de nuestra palabra oculta
 		
 		String palabraOculta = palabras[opcion]; //esta sera la palabra con la posicion						
 		
+		char letra;
 		char letraOculta = '_'; // caracter para esconder las letras de las palabras
 		int intentosRestantes = 6;
+		
 		StringBuilder palabraOcultaCompleta = new StringBuilder(); //declaracion del String	Builder para permititr modificaciones en las palabras
 		
 		//cambio de letras de las palabras por caracter "_"
-	       for (int i = 0; i < palabraOculta.length(); i++) { 
-	           palabraOcultaCompleta.append('_');
-	        }
+	    for (int i = 0; i < palabraOculta.length(); i++) { 
+	        palabraOcultaCompleta.append('_');
+	    }
 		
+	       
+	       
 		System.out.println("tas:" + palabraOculta);
 		System.out.println("tas:" + palabraOcultaCompleta);
 
@@ -50,3 +63,11 @@ Instrucciones:
 	2. El programa preguntará cuantas rondas se quieren jugar.
 	3. Para cada ronda, el programa debe:
 		· Mostrar las letras acertadas de la palabra secreta (con guiones bajos para las letras no adivinadas).
+		· Solicitar a los jugadores que ingresen una letra.
+		· Comprobar si la letra ingresada es correcta.
+		· Actualizar la palabra secreta con las letras adivinadas correctamente.
+		· Contabilizar los intentos restantes para cada jugador.
+		· Mostrar el estado de la palabra secreta después de cada intento.
+		· Al finalizar las rondas, mostrar el nombre del jugador que haya ganado más rondas.
+
+*/
