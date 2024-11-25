@@ -11,13 +11,13 @@ public class Juego_Colgado {
 		
 		String[] palabras = {"alemania","polivalente","impresionante","estupefacientes"}; //palabras del juego
 		
-		int cuantosJugadores = 0;
-		while(cuantosJugadores<2) {
+		int cuantosJugadores = 0; // se pide los jugadores que van a jugar
+		while(cuantosJugadores<2) { // minimo 2 jugadores
 			System.out.println("¿Cuantos jugadores juegan?");
 			cuantosJugadores = scanner.nextInt();
 		}
 		
-		System.out.println("¿Cuantas rondas jugaran?");
+		System.out.println("¿Cuantas rondas jugaran?"); // se pide las rondas que quieren jugar
 		int rondas = scanner.nextInt();
 		
 		System.out.println("Elije una de las palabras ocultas:");
@@ -25,23 +25,58 @@ public class Juego_Colgado {
 		
 		String palabraOculta = palabras[opcion]; //esta sera la palabra con la posicion						
 		
-		char letra;
-		char letraOculta = '_'; // caracter para esconder las letras de las palabras
-		int intentosRestantes = 6;
+		int intentosRestantes = 6; // numero de intentos restantes por defecto
 		
 		StringBuilder palabraOcultaCompleta = new StringBuilder(); //declaracion del String	Builder para permititr modificaciones en las palabras
 		
 		//cambio de letras de las palabras por caracter "_"
+		
 	    for (int i = 0; i < palabraOculta.length(); i++) { 
-	        palabraOcultaCompleta.append('_');
+	        palabraOcultaCompleta.append('_'); // se sustituye las letras por "_"
 	    }
 		
-	       
-	       
-		System.out.println("tas:" + palabraOculta);
-		System.out.println("tas:" + palabraOcultaCompleta);
+	    /* COMPROBAR LETRA INGRESADA EN PALABRA + RESTO DE INTENTOS SI MAL */
+	    
+	    while (intentosRestantes > 0 && palabraOcultaCompleta.toString().contains("_")) { //bucle se ejecuta mientras queden intentos y no se haya completado la palabra / no hayan mas "_"
+	        System.out.println("Intentos restantes: " + intentosRestantes); // muestra intentos restantes
+	        System.out.println("Palabra actual: " + palabraOcultaCompleta); // muestra la palabra oculta
+	        System.out.print("Introduce una letra: "); // texto pidiendo una letra
+	        
+	        // Leer una letra
+	        char letraAdivinada = scanner.next().toLowerCase().charAt(0); // scanner pide la letra, este la pasa a minuscula por defecto, se escogera el caracter en posicion 0 es decir 'abc' = 'a'
 
-		
+	        // Validar si es una letra
+	        if (!Character.isLetter(letraAdivinada)) { // combrueba que en el scanner de letra se haya escrito una letra
+	            System.out.println("Por favor, introduce solo una letra válida.");
+	        }
+
+	        // Verificar si la letra está en la palabra
+	        boolean letraEncontrada = false;
+	        for (int i = 0; i < palabraOculta.length(); i++) { // bucle que recorre letra a letra la palabra oculta
+	            if (palabraOculta.charAt(i) == letraAdivinada) {
+	                palabraOcultaCompleta.setCharAt(i, letraAdivinada); // Actualizar la palabra oculta | Actualiza un carácter en una posición específica de un StringBuilder sin crear un nuevo objeto, haciendo que sea más eficiente.
+	                letraEncontrada = true;
+	            }
+	        }
+
+	        // Actualizar intentos o continuar
+	        if (letraEncontrada) {
+	            System.out.println("¡Bien! La letra '" + letraAdivinada + "' está en la palabra."); // si esta la letra = mensaje felicitando
+	        } else {
+	            intentosRestantes--;
+	            System.out.println("Lo siento, la letra '" + letraAdivinada + "' no está en la palabra."); // si la letra no esta resta un intento + mensaje indicando letra incorrecta
+	        }
+	    }
+
+	    // Indica si se ganó o se perdió en el juego
+	    if (palabraOcultaCompleta.toString().equals(palabraOculta)) {
+	        System.out.println("¡Felicidades! Has adivinado la palabra: " + palabraOculta);
+	    } else {
+	        System.out.println("Te has quedado sin intentos. La palabra era: " + palabraOculta);
+	    }
+
+	    //////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	}
 
 }
