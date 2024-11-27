@@ -20,66 +20,71 @@ public class Juego_Colgado {
 		System.out.println("¿Cuantas rondas jugaran?"); // se pide las rondas que quieren jugar
 		int rondas = scanner.nextInt();
 		
-		System.out.println("Elije una de las palabras ocultas:");
-		int opcion = scanner.nextInt()-1; // scanner con la opcion a elejir de nuestra palabra oculta
-		
-		String palabraOculta = palabras[opcion]; //esta sera la palabra con la posicion						
-		
-		int intentosRestantes = 6; // numero de intentos restantes por defecto
-		
-		int letrasPalabraOculta = palabraOculta.length();
-		
-		char [] palabraGuiones = new char[letrasPalabraOculta];
-		
-		for (int i = 0; i < palabraGuiones.length; i++) { 
-			palabraGuiones[i] = '_'; // se sustituye las letras por "_"
-	    }
-		  
-		
-		while (intentosRestantes > 0 && new String(palabraGuiones).contains("_")) { //bucle se ejecuta mientras queden intentos y no se haya completado la palabra / no hayan mas "_"
-	        System.out.println("Intentos restantes: " + intentosRestantes); // muestra intentos restantes
-	        System.out.println("Palabra actual: " + new String(palabraGuiones)); // muestra la palabra oculta
-	        System.out.print("Introduce una letra: "); // texto pidiendo una letra
-	        
-	        
-	        // Leer una letra
-	        
-	        char letraAdivinada = scanner.next().toLowerCase().charAt(0);// scanner pide la letra, este la pasa a minuscula por defecto, se escogera el caracter en posicion 0 es decir 'abc' = 'a'
-	        
-	        // Validar si es una letra
-	        if (!Character.isLetter(letraAdivinada)) { // combrueba que en el scanner de letra se haya escrito una letra
-	            System.out.println("Por favor, introduce solo una letra válida.");
-	        }
-	        
-	        boolean letraEncontrada = false;
-
-	        for(int i = 0; i < palabraOculta.length();i++) { // bucle que recorre letra a letra la palabra oculta
-	        	if(palabraOculta.charAt(i) == letraAdivinada) {
-	        		palabraGuiones[i] = letraAdivinada;
-	                letraEncontrada = true;
-	        	}
-	        }
-	        	        
-	        // Actualizar intentos o continuar
-	        
-	        if (letraEncontrada) {
-	            System.out.println("¡Bien! La letra '" + letraAdivinada + "' está en la palabra."); // si esta la letra = mensaje felicitando
-	        } else {
-	            intentosRestantes--;
-	            System.out.println("Lo siento, la letra '" + letraAdivinada + "' no está en la palabra."); // si la letra no esta resta un intento + mensaje indicando letra incorrecta
-	        }
-	    
+		for(int k = 0; k < rondas; k++) {
+				if(k > 0) {
+					System.out.println("\n¡Nueva ronda!");
+				}
+			System.out.println("Elije una de las palabras ocultas:");
+			int opcion = scanner.nextInt()-1; // scanner con la opcion a elejir de nuestra palabra oculta
+			
+			String palabraOculta = palabras[opcion]; //esta sera la palabra con la posicion						
+			
+			int intentosRestantes = 6; // numero de intentos restantes por defecto
+			
+			int letrasPalabraOculta = palabraOculta.length();
+			
+			char [] palabraGuiones = new char[letrasPalabraOculta];
+			
+				
+			for (int i = 0; i < palabraGuiones.length; i++) { 
+				palabraGuiones[i] = '_'; // se sustituye las letras por "_"
+		    }
+			  
+			
+			while (intentosRestantes > 0 && new String(palabraGuiones).contains("_")) { //bucle se ejecuta mientras queden intentos y no se haya completado la palabra / no hayan mas "_"
+		        System.out.println("Intentos restantes: " + intentosRestantes); // muestra intentos restantes
+		        System.out.println("Palabra actual: " + new String(palabraGuiones)); // muestra la palabra oculta
+		        System.out.print("Introduce una letra: "); // texto pidiendo una letra
+		        
+		        
+		        // Leer una letra
+		        
+		        char letraAdivinada = scanner.next().toLowerCase().charAt(0);// scanner pide la letra, este la pasa a minuscula por defecto, se escogera el caracter en posicion 0 es decir 'abc' = 'a'
+		        
+		        // Validar si es una letra
+		        if (!Character.isLetter(letraAdivinada)) { // combrueba que en el scanner de letra se haya escrito una letra
+		            System.out.println("Por favor, introduce solo una letra válida.");
+		        }
+		        
+		        boolean letraEncontrada = false;
+	
+		        for(int i = 0; i < palabraOculta.length();i++) { // bucle que recorre letra a letra la palabra oculta
+		        	if(palabraOculta.charAt(i) == letraAdivinada) {
+		        		palabraGuiones[i] = letraAdivinada;
+		                letraEncontrada = true;
+		        	}
+		        }
+		        	        
+		        // Actualizar intentos o continuar
+		        
+		        if (letraEncontrada) {
+		            System.out.println("¡Bien! La letra '" + letraAdivinada + "' está en la palabra."); // si esta la letra = mensaje felicitando
+		        } else {
+		            intentosRestantes--;
+		            System.out.println("Lo siento, la letra '" + letraAdivinada + "' no está en la palabra."); // si la letra no esta resta un intento + mensaje indicando letra incorrecta
+		        }
+		    
+			}
+			
+			// Indica si se ganó o se perdió en el juego
+			
+		    if (new String(palabraGuiones).equals(palabraOculta)) {
+		        System.out.println("\n¡Felicidades! Has adivinado la palabra: " + palabraOculta);
+		    } else {
+		        System.out.println("\nLo siento, te has quedado sin intentos. Has perdido.");
+		        System.out.println("\nLa palabra era: " + palabraOculta);
+		    }
 		}
-		
-		// Indica si se ganó o se perdió en el juego
-		
-	    if (new String(palabraGuiones).equals(palabraOculta)) {
-	        System.out.println("\n¡Felicidades! Has adivinado la palabra: " + palabraOculta);
-	    } else {
-	        System.out.println("\nLo siento, te has quedado sin intentos. Has perdido.");
-	        System.out.println("\nLa palabra era: " + palabraOculta);
-	    }
-	    
 	}
 }
 
