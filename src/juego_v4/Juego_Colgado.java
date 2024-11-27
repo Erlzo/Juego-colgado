@@ -11,19 +11,24 @@ public class Juego_Colgado {
 		
 		String[] palabras = {"alemania","polivalente","impresionante","estupefacientes"}; //palabras del juego
 		
-		int cuantosJugadores = 0; // se pide los jugadores que van a jugar
-		while(cuantosJugadores<2) { // minimo 2 jugadores
-			System.out.println("¿Cuantos jugadores juegan?");
-			cuantosJugadores = scanner.nextInt();
-		}
+		int[] cuantosJugadores; // se pide los jugadores que van a jugar	
+		System.out.println("¿Cuantos jugadores juegan? | Mínimo 2 jugadores.");
+		int numJugadores = scanner.nextInt();
+		cuantosJugadores = new int[numJugadores];
+		
 		
 		System.out.println("¿Cuantas rondas jugaran?"); // se pide las rondas que quieren jugar
 		int rondas = scanner.nextInt();
+		
+		int rondasGanadas = 0;
+		int rondasPerdidas = 0;
+		
 		
 		for(int k = 0; k < rondas; k++) {
 				if(k > 0) {
 					System.out.println("\n¡Nueva ronda!");
 				}
+
 			System.out.println("Elije una de las palabras ocultas:");
 			int opcion = scanner.nextInt()-1; // scanner con la opcion a elejir de nuestra palabra oculta
 			
@@ -79,12 +84,25 @@ public class Juego_Colgado {
 			// Indica si se ganó o se perdió en el juego
 			
 		    if (new String(palabraGuiones).equals(palabraOculta)) {
+		    	rondasGanadas++;
 		        System.out.println("\n¡Felicidades! Has adivinado la palabra: " + palabraOculta);
 		    } else {
+		    	rondasPerdidas++;
 		        System.out.println("\nLo siento, te has quedado sin intentos. Has perdido.");
 		        System.out.println("\nLa palabra era: " + palabraOculta);
+
+
 		    }
+		    
+		    if(k == rondas) {
+		        System.out.println("");
+		    } else {
+		        System.out.println("\nRONDAS");
+		        System.out.println("\nWin " + rondasGanadas);
+		        System.out.println("\nLose " + rondasPerdidas);
+	        }
 		}
+		
 	}
 }
 
